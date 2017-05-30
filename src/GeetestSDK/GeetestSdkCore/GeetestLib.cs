@@ -8,7 +8,7 @@ using System.Net.Http;
 using System.IO;
 using System.Net.Http.Headers;
 
-namespace GeetestSdkCore
+namespace GeetestSDK
 {
     /// <summary>
     /// GeetestLib 极验验证C# SDK基本库
@@ -188,7 +188,7 @@ namespace GeetestSdkCore
                 }
                 catch (Exception e)
                 {
-                    Console.WriteLine(e);
+                    //Console.WriteLine(e);
                 }
                 if (response.Equals(md5Encode(seccode)))
                 {
@@ -210,7 +210,7 @@ namespace GeetestSdkCore
                 }
                 catch (Exception e)
                 {
-                    Console.WriteLine(e);
+                    //Console.WriteLine(e);
                 }
                 if (response.Equals(md5Encode(seccode)))
                 {

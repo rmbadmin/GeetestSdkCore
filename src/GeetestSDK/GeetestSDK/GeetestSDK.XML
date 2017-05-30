@@ -82,6 +82,12 @@
             </summary>
             <returns>初始化结果</returns>
         </member>
+        <member name="M:GeetestSDK.GeetestLib.getResponseStr">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:GeetestSDK.GeetestLib.getFailPreProcessRes">
             <summary>
             预处理失败后的返回格式串
@@ -109,6 +115,16 @@
             <param name="validate">拖动完成后server端返回的验证结果标识字符串</param>
             <param name="seccode">验证结果的校验码，如果gt-server返回的不与这个值相等则表明验证失败</param>
             <returns>二次验证结果</returns>
+        </member>
+        <member name="M:GeetestSDK.GeetestLib.enhencedValidateRequest(System.String,System.String,System.String,System.String)">
+            <summary>
+            
+            </summary>
+            <param name="challenge"></param>
+            <param name="validate"></param>
+            <param name="seccode"></param>
+            <param name="userID"></param>
+            <returns></returns>
         </member>
     </members>
 </doc>

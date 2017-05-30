@@ -118,6 +118,10 @@ namespace GeetestSDK
             return 0;
 
         }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public String getResponseStr()
         {
             return this.responseStr;
@@ -196,6 +200,14 @@ namespace GeetestSDK
             }
             return GeetestLib.failResult;
         }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="challenge"></param>
+        /// <param name="validate"></param>
+        /// <param name="seccode"></param>
+        /// <param name="userID"></param>
+        /// <returns></returns>
         public int enhencedValidateRequest(String challenge, String validate, String seccode, String userID)
         {
             if (!this.requestIsLegal(challenge, validate, seccode)) return GeetestLib.failResult;
