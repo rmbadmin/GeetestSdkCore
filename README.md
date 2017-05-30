@@ -1,6 +1,6 @@
 # Gt C# SDK [![NuGet](https://img.shields.io/nuget/v/GeetestSdkCore.svg?label=nuget&style=flat-square)](https://www.nuget.org/packages/GeetestSdkCore/)
 
-支持.Net Framework4.6 && .NET Core 1.0及以上版本．本项目提供的Demo的前端实现方法均是面向PC端的。 本项目是面向服务器端的，具体使用可以参考我们的[文档](http://www.geetest.com/install/sections/idx-server-sdk.html),客户端相关开发请参考我们的[前端文档](http://www.geetest.com/install/)
+支持.Net Framework4.6 && .NET Core 1.0及以上版本．本项目提供的Demo的前端实现方法均是面向PC端的。 本项目是面向服务器端的，具体使用可以参考[文档](http://www.geetest.com/install/sections/idx-server-sdk.html), 客户端相关开发请参考我们的[前端文档](http://www.geetest.com/install/)。
 
 **注意事项：部署在生产环境中时，需要将gt.js文件存放到项目中并在页面中引用该文件。该js的作用是充分利用多CDN，使静态文件尽可能加载成功。**
 
