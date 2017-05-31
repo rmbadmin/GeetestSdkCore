@@ -4,9 +4,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Security.Cryptography;
+#if NET45 || NET46 || NETSTANDARD1_3 || NETSTANDARD1_6
 using System.Net.Http;
-using System.IO;
 using System.Net.Http.Headers;
+#endif
+#if NET35 || NET40
+using System.Net;
+#endif
+using System.IO;
 
 namespace GeetestSDK
 {
@@ -223,6 +228,7 @@ namespace GeetestSDK
         {
             try
             {
+#if NET45 || NET46 || NETSTANDARD1_3 || NETSTANDARD1_6
                 HttpClient client = new HttpClient
                 {
                     Timeout = new TimeSpan(0, 0, 2)
@@ -232,6 +238,17 @@ namespace GeetestSDK
                 StreamReader myStreamReader = new StreamReader(result.Result, Encoding.GetEncoding("utf-8"));
                 String retString = myStreamReader.ReadToEnd();
                 myStreamReader.Dispose();
+#endif
+#if NET35 || NET40
+                HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
+                request.Timeout = 20000;
+                HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+                Stream myResponseStream = response.GetResponseStream();
+                StreamReader myStreamReader = new StreamReader(myResponseStream, Encoding.GetEncoding("utf-8"));
+                String retString = myStreamReader.ReadToEnd();
+                myStreamReader.Close();
+                myResponseStream.Close();
+#endif
                 return retString;
             }
             catch
@@ -262,35 +279,47 @@ namespace GeetestSDK
         private String postValidate(String data)
         {
             String url = string.Format("{0}{1}", GeetestLib.apiUrl, GeetestLib.validateUrl);
+#if NET45 || NET46 || NETSTANDARD1_3 || NETSTANDARD1_6
             HttpClient client = new HttpClient();
             HttpContent content = new StringContent(data, Encoding.UTF8);
             content.Headers.ContentType = MediaTypeHeaderValue.Parse("application/ x-www-form-urlencoded; charset=UTF-8");
             var response = client.PostAsync(new Uri(url), content);
             response.Wait();
-            //HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
-            //request.Method = "POST";
-            //request.ContentType = "application/x-www-form-urlencoded";
-            //request.ContentLength = Encoding.UTF8.GetByteCount(data);
-            //// 发送数据
-            //Stream myRequestStream = request.GetRequestStream();
-            //byte[] requestBytes = System.Text.Encoding.ASCII.GetBytes(data);
-            //myRequestStream.Write(requestBytes, 0, requestBytes.Length);
-            //myRequestStream.Close();
-
-            //HttpWebResponse response = (HttpWebResponse)request.GetResponse();
-            // 读取返回信息
             Stream myResponseStream = response.Result.Content.ReadAsStreamAsync().Result;
             StreamReader myStreamReader = new StreamReader(myResponseStream, Encoding.GetEncoding("utf-8"));
             string retString = myStreamReader.ReadToEnd();
             myResponseStream.Dispose();
             myStreamReader.Dispose();
-            return retString;
+#endif
+#if NET35 || NET40
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
+            request.Method = "POST";
+            request.ContentType = "application/x-www-form-urlencoded";
+            request.ContentLength = Encoding.UTF8.GetByteCount(data);
+            // 发送数据
+            Stream myRequestStream = request.GetRequestStream();
+            byte[] requestBytes = System.Text.Encoding.ASCII.GetBytes(data);
+            myRequestStream.Write(requestBytes, 0, requestBytes.Length);
+            myRequestStream.Close();
 
+            HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+            // 读取返回信息
+            Stream myResponseStream = response.GetResponseStream();
+            StreamReader myStreamReader = new StreamReader(myResponseStream, Encoding.GetEncoding("utf-8"));
+            string retString = myStreamReader.ReadToEnd();
+            myStreamReader.Close();
+            myResponseStream.Close();
+#endif
+            return retString;
         }
         private String md5Encode(String plainText)
         {
+#if NET45 || NET46 || NETSTANDARD1_3 || NETSTANDARD1_6
             MD5 md5 = MD5.Create();
-            //MD5CryptoServiceProvider md5 = new MD5CryptoServiceProvider();
+#endif
+#if NET35 || NET40
+            MD5CryptoServiceProvider md5 = new MD5CryptoServiceProvider();
+#endif
             string t2 = BitConverter.ToString(md5.ComputeHash(Encoding.UTF8.GetBytes(plainText)));
             t2 = t2.Replace("-", "");
             t2 = t2.ToLower();

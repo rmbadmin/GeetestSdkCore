@@ -1,20 +1,36 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard1.3</TargetFramework>
+     <TargetFrameworks>net46;net45;net40;net35;netstandard1.3;netstandard1.6</TargetFrameworks>
     <Authors>rmbadmin</Authors>
     <Description>极验验证SDK</Description>
     <PackageIconUrl>http://front.geetest.com/logo/logo.ico</PackageIconUrl>
     <PackageProjectUrl>http://docs.geetest.com/</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/rmbadmin/gt3-dotnet-sdk</RepositoryUrl>
-    <Version>1.0.0</Version>
-    <AssemblyVersion>1.0.0.0</AssemblyVersion>
-    <FileVersion>1.0.0.0</FileVersion>
+    <RepositoryUrl>https://github.com/rmbadmin/GeetestSdkCore</RepositoryUrl>
+    <Version>1.1.0</Version>
+    <AssemblyVersion>1.1.0.0</AssemblyVersion>
+    <FileVersion>1.1.0.0</FileVersion>
     <PackageReleaseNotes></PackageReleaseNotes>
+    <PackageTags>极验验证,Geetest,验证码,滑动验证</PackageTags>
+    <RepositoryType>Git</RepositoryType>
   </PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="System.Net.Http" Version="4.3.2" />
+  <ItemGroup Condition="'$(TargetFramework)' == 'netstandard1.3'">
+    <PackageReference Include="System.Net.Http">
+      <Version>4.3.2</Version>
+    </PackageReference>
   </ItemGroup>
 
+  <ItemGroup Condition="'$(TargetFramework)' == 'net45'">
+    <PackageReference Include="System.Net.Http">
+      <Version>4.3.2</Version>
+    </PackageReference>
+  </ItemGroup>
+  
+    <ItemGroup Condition="'$(TargetFramework)' == 'net46'">
+    <PackageReference Include="System.Net.Http">
+      <Version>4.3.2</Version>
+    </PackageReference>
+  </ItemGroup>
+  
 </Project>
